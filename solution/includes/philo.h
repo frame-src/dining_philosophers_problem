@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:08:38 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:09:15 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 # include <stdio.h>
@@ -34,7 +46,7 @@ void		end_of_the_banquet(t_info *data, \
 *==========================================================*/
 long long	timestamp(void);
 long long	time_frame(long long start, long long end);
-void		action_print(t_info *data, int who, char *message,\
+void		action_print(t_info *data, int who, char *message, \
 				bool last_print);
 int			print_instruction(void);
 /*==========================================================*

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:12:01 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:29:02 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	end_of_the_banquet(t_info *data, t_philosopher *philo, int status)
@@ -15,10 +27,8 @@ void	end_of_the_banquet(t_info *data, t_philosopher *philo, int status)
 		i++;
 	}
 	i = 0;
-	pthread_mutex_unlock(&(data->satisfaction_counter));
 	while (i < data->num_philo)
 	{
-		//pthread_join(philo[i].t_philo, NULL);
 		pthread_detach(philo[i].t_philo);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:57 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/17 21:23:53 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/19 22:48:18 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,28 @@
 void	action_print(t_info *data, int who, char *message, bool	last_print)
 {
 	long long int	time;
-	static bool		condition;
 
-	if (condition == true)
+	pthread_mutex_lock(&(data->message));
+	pthread_mutex_lock(&(data)->condition);
+	if (data->last_christmas == true)
+	{
+		pthread_mutex_unlock(&(data)->condition);
+		pthread_mutex_unlock(&(data->message));
 		return ;
+	}
 	time = time_frame(data->start, timestamp());
 	printf("%lli\t%i\t%s", time, who, message);
 	if (last_print == true)
-		condition = true;
+		data->last_christmas = true;
+	pthread_mutex_unlock(&(data)->condition);
 	pthread_mutex_unlock(&(data->message));
-	
 }
 
 static void	philo_taking_fork(t_philosopher **philo, t_info **data)
 {
 	pthread_mutex_lock(&((*data)->forks[(*philo)->l_fork]));
-	pthread_mutex_lock(&((*data)->message));
 	action_print(*data, (*philo)->num, "Has taken a fork... \t--E\n", false);
 	pthread_mutex_lock(&((*data)->forks[(*philo)->r_fork]));
-	pthread_mutex_lock(&((*data)->message));
 	action_print(*data, (*philo)->num, "Has taken a fork... \t--E\n", false);
 }
 
@@ -68,10 +71,10 @@ void	eating(t_philosopher **philo)
 	philo_taking_fork(philo, &data);
 	pthread_mutex_lock(&(*philo)->buboes);
 	(*philo)->time_last_meal = timestamp();
+	digestion(philo, &data);
 	pthread_mutex_unlock(&(*philo)->buboes);
-	pthread_mutex_lock(&(data->message));
-	action_print(data, (*philo)->num, "Is eating... \t\t*nyam nyam nyam*\n", false);
+	action_print(data, (*philo)->num, \
+		"Is eating... \t\t*nyam nyam nyam*\n", false);
 	waiting(data->time_to_eat, &data);
 	philo_leaving_fork(philo, &data);
-	digestion(philo, &data);
 }

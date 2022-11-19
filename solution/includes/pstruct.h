@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 21:18:47 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/17 20:51:38 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/19 22:37:49 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ typedef struct s_info
 	int					n_philos_sated;
 	bool				all_ready;
 	bool				first_dinner_done;
+	bool				last_christmas;
 	long long			start;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		democritus;
 	pthread_mutex_t		message;
-	pthread_mutex_t		satisfaction_counter;
+	pthread_mutex_t		condition;
 	t_philosopher		*philosophers;
 }						t_info;
 
