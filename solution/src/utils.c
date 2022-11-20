@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:12:24 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 19:52:31 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:16:25 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ bool	waiting(int time)
 	long long	i;
 
 	i = timestamp();
-	// while ((*data)->philosophers->dead == false)
-	while(1)
+	while (1)
 	{
 		if (time_frame(i, timestamp()) >= time)
 			return (true);

@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:57 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 19:54:58 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:32:44 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	action_print(t_info *data, int who, char *message, bool	last_print)
 	pthread_mutex_lock(&(data)->condition);
 	if (data->last_christmas == true)
 	{
+		data->philosophers[who].dead = true;
 		pthread_mutex_unlock(&(data)->condition);
 		pthread_mutex_unlock(&(data->message));
 		return ;
 	}
 	time = time_frame(data->start, timestamp());
-	printf("%lli\t%i\t%s", time, who, message);
+	printf("%lli\t%i\t%s", time, who + 1, message);
 	if (last_print == true)
 		data->last_christmas = true;
 	pthread_mutex_unlock(&(data)->condition);

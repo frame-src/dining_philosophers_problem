@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:12:01 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 20:07:33 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:16:05 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	end_of_the_banquet(t_info *data, t_philosopher *philo, int status)
 	{
 		pthread_mutex_destroy(&(data->forks[i]));
 		pthread_mutex_destroy(&(data->philosophers[i].buboes));
-		pthread_mutex_destroy(&(data->philosophers[i].digestion));	
-		pthread_mutex_destroy(&(data->philosophers[i].first_kill));	
+		pthread_mutex_destroy(&(data->philosophers[i].digestion));
+		pthread_mutex_destroy(&(data->philosophers[i].first_kill));
 	}
 	pthread_mutex_destroy(&(data->message));
 	pthread_mutex_destroy(&(data->condition));
@@ -35,16 +35,15 @@ void	end_of_the_banquet(t_info *data, t_philosopher *philo, int status)
 	free(data->forks);
 }
 
+/* LEAKS CHECK
 static void	leaks(void)
 {
 	system("leaks philo");
 }
-/*
-
+	atexit(leaks);
 */
 int	main(int argc, char*argv[])
 {
-	atexit(leaks);
 	t_info	*data;
 
 	if (argc != 5 && argc != 6)

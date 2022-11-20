@@ -16,12 +16,12 @@ SRC =		./src/actions.c\
 OBJ =	$(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g #-pthread -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -g -pthread -fsanitize=thread
 
 all:	$(NAME)
 
 $(NAME):$(ODIR) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -fsanitize=thread
 	echo "done;"
 
 $(ODIR)/%.o: $(SDIR)/%.c
