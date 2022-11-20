@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:11:22 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:11:34 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	*print_error(char *message, t_info *data)
@@ -24,14 +36,3 @@ int	print_instruction(void)
 	printf("[argc5] = int:\tnumber of dinners; \n\n");
 	return (1);
 }
-
-//you should call with macro __func__
-// void *failure(int flag,char *str)
-// {
-// 	int err_value;
-
-// 	if (flag == 1)
-// 	err_value = errno;
-//     printf("%s failed\n", str);
-//     if (err_value == ...){ ... }
-// } 

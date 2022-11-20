@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:45:37 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 /*==========================================================*
@@ -47,19 +59,6 @@ int	check_death(t_info **data)
 	return (ALIVE);
 }
 
-/*
-static void	plague(t_info **data)
-{
-	int	i;
-
-	i = 0;
-	while(i < (*data)->num_philo)
-	{
-		(*data)->philosophers[i].dead = true;
-		i++;
-	}
-}
-*/
 /*==========================================================*
 |						MAIN CONTROL						|
 *===========================================================*
@@ -81,10 +80,8 @@ int	main_checker(t_info **data)
 	{
 		if (count == (*data)->max_dinners)
 		{
-			pthread_mutex_lock(&(*data)->message);
 			action_print(*data, philo->num, "GOOD JOB,\
 					all the philos are \tSATISFIED\n", true);
-			//pthread_mutex_lock(&(*data)->message);
 			return (ALIVE);
 		}
 		pthread_mutex_lock(&philo->first_kill);
@@ -92,16 +89,11 @@ int	main_checker(t_info **data)
 		pthread_mutex_unlock(&philo->first_kill);
 		if (status == DEAD)
 		{
-			pthread_mutex_lock(&(*data)->message);
 			action_print(*data, philo->num, "is dead... \tR.I.P.\n", true);
-			pthread_mutex_lock(&(*data)->message);
-			//plague(data);
 			return (DEAD);
 		}
 		else if (status == FULL)
-		{
 			count++;
-		}
 	}
 	return (ALIVE);
 }

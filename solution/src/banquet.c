@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   banquet.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:10:02 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:46:20 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 /*==========================================================*
@@ -28,20 +40,26 @@ static void	*dining(void *philosopher)
 	while (philo->dead == false)
 	{
 		eating(&philo);
-		pthread_mutex_lock(&(data->message));
 		action_print(data, philo->num, "Is sleeping... \t\t*zzzz*\n", false);
 		waiting(data->time_to_sleep, &data);
 		if (philo->dead == false)
-		{
-			pthread_mutex_lock(&(data->message));
-			action_print(data, philo->num, "Is thinking... \t\t*mumble mumble*\n", false);
-		}
-		if (data->max_dinners >= 0 && philo->dinners_done == data->max_dinners)
-			return (NULL);
-		if (philo->dead == true)
+			action_print(data, philo->num, \
+				"Is thinking... \t\t*mumble mumble*\n", false);
+		if ((data->max_dinners >= 0 && \
+			philo->dinners_done == data->max_dinners) || philo->dead == true)
 			break ;
 	}
 	return (NULL);
+}
+
+static void	sinc(t_info **data)
+{
+	(*data)->all_ready = true;
+	waiting(100, data);
+	(*data)->start = timestamp();
+	printf("START %lld\n", (*data)->start);
+	printf("food %d\n", (*data)->max_dinners);
+	pthread_mutex_unlock(&(*data)->democritus);
 }
 
 /*==========================================================*
@@ -65,20 +83,13 @@ int	the_banquet(t_info *data)
 	{
 		if (pthread_create(&(philo[i].t_philo), NULL, dining, &(philo[i])) != 0)
 		{
-			(print_error(THREAD_ERROR, data));
+			print_error(THREAD_ERROR, data);
 			return (1);
 		}
 		i++;
 		if (i == data->num_philo)
-		{
-			data->all_ready = true;
-			waiting(100, &data);
-			data->start = timestamp();
-			printf("START %d \t %lld\n", i, data->start);
-			pthread_mutex_unlock(&(data->democritus));
-		}
+			sinc(&data);
 	}
-	//printf("Number of simulation: %d\n", philo[i].dinners_done);
 	if (main_checker(&data) == ALIVE)
 		end_of_the_banquet(data, philo, ALIVE);
 	else

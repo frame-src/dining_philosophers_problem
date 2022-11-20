@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 22:11:48 by frmessin          #+#    #+#             */
+/*   Updated: 2022/11/19 22:25:22 by frmessin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 /*==========================================================*
@@ -62,7 +74,7 @@ static bool	init_mutex(t_info **data)
 		return (print_error(MUTEX_ERROR, *data) && false);
 	if (pthread_mutex_init(&(*data)->message, NULL) != 0)
 		return (print_error(MUTEX_ERROR, *data) && false);
-	if (pthread_mutex_init(&(*data)->satisfaction_counter, NULL) != 0)
+	if (pthread_mutex_init(&(*data)->condition, NULL) != 0)
 		return (print_error(MUTEX_ERROR, *data) && false);
 	return (true);
 }
