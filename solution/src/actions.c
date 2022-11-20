@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:52:57 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:48:18 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:54:58 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void	eating(t_philosopher **philo)
 	pthread_mutex_unlock(&(*philo)->buboes);
 	action_print(data, (*philo)->num, \
 		"Is eating... \t\t*nyam nyam nyam*\n", false);
-	waiting(data->time_to_eat, &data);
+	waiting(data->time_to_eat);
 	philo_leaving_fork(philo, &data);
 }

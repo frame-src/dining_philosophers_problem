@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:41:09 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/16 16:03:39 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:46:41 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static bool	print_parsing_error(char *string)
 static bool	check_arguments(char **argv, int argc)
 {
 	if (ft_atoi(argv[1]) <= 0)
-		return (print_parsing_error("there's no one \
-				in the table"));
+		return (print_parsing_error(\
+			"there's no one	in the table"));
 	if (ft_atoi(argv[1]) > 200)
-		return (print_parsing_error("chill, you can \
-				test with less"));
+		return (print_parsing_error(\
+			"chill, you can test with less"));
 	if (ft_atoi(argv[2]) < 60)
-		return (print_parsing_error("parsing error, \
-				try bigger value for death_time"));
+		return (print_parsing_error(\
+			"parsing error, try bigger value for death_time"));
 	if (ft_atoi(argv[3]) < 60)
 		return (print_parsing_error("parsing error"));
 	if (ft_atoi(argv[4]) < 60)
@@ -101,15 +101,17 @@ static void	fill_data(char **argv, t_info **data)
 bool	check_input(t_info **data, int argc, char **argv)
 {
 	(*data)->max_dinners = -1;
-	if (argc == 6)
+	if (check_arguments(argv, argc) == false)
+		return (false);
+	else
 	{
-		if (check_arguments(argv, argc))
+		if (argc == 6)
 		{
 			fill_data(argv, data);
 			(*data)->max_dinners = ft_atoi(argv[5]);
 		}
-	}
-	else if (check_arguments(argv, argc))
-		fill_data(argv, data);
+		else
+			fill_data(argv, data);
+	}	
 	return (true);
 }

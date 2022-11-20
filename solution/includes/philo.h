@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:08:38 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:09:15 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:53:07 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int			ft_atoi(char *string);
 |						ACTIONS								|
 *==========================================================*/
 void		eating(t_philosopher **philo);
-bool		waiting(int time, t_info **data);
+bool		waiting(int time);
 void		end_of_the_banquet(t_info *data, \
 				t_philosopher *philo, int status);
 /*==========================================================*

@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:02 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:46:20 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:53:50 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ static void	*dining(void *philosopher)
 	if (data->all_ready == true)
 		pthread_mutex_unlock(&(data->democritus));
 	if (philo->num % 2)
-	{
-		if (waiting((data->time_to_eat), &data) == false)
-			return (NULL);
-	}
+		usleep(100);
 	while (philo->dead == false)
 	{
 		eating(&philo);
+		if ((data->max_dinners >= 0 && \
+			philo->dinners_done == data->max_dinners) || philo->dead == true)
+			break ;
 		action_print(data, philo->num, "Is sleeping... \t\t*zzzz*\n", false);
-		waiting(data->time_to_sleep, &data);
+		waiting(data->time_to_sleep);
 		if (philo->dead == false)
 			action_print(data, philo->num, \
 				"Is thinking... \t\t*mumble mumble*\n", false);
@@ -55,7 +55,7 @@ static void	*dining(void *philosopher)
 static void	sinc(t_info **data)
 {
 	(*data)->all_ready = true;
-	waiting(100, data);
+	usleep(100);
 	(*data)->start = timestamp();
 	printf("START %lld\n", (*data)->start);
 	printf("food %d\n", (*data)->max_dinners);

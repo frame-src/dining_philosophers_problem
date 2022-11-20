@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:11:48 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:25:22 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:50:02 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,13 @@ static bool	init_mutex(t_info **data)
 *==========================================================*/
 t_info	*init_data(int argc, char **argv, t_info *data)
 {
-	if (!check_input(&data, argc, argv))
+	if (check_input(&data, argc, argv) == false)
+	{
 		return (NULL);
-	if (!init_philosophers(&data))
+	}
+	if (init_philosophers(&data) == false)
 		return (NULL);
-	if (!init_mutex(&data))
+	if (init_mutex(&data) == false)
 		return (NULL);
 	return (data);
 }

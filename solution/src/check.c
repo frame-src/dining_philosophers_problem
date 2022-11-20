@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:45:37 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:18:08 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ int	main_checker(t_info **data)
 	while (1)
 	{
 		if (count == (*data)->max_dinners)
-		{
-			action_print(*data, philo->num, "GOOD JOB,\
-					all the philos are \tSATISFIED\n", true);
-			return (ALIVE);
-		}
+			return (FULL);
 		pthread_mutex_lock(&philo->first_kill);
 		status = check_death(data);
 		pthread_mutex_unlock(&philo->first_kill);

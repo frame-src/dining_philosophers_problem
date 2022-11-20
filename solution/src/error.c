@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:11:22 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/19 22:11:34 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:50:32 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 void	*print_error(char *message, t_info *data)
 {
 	printf("%s", message);
-	if (data->philosophers)
-		free(data->philosophers);
-	if (data->forks)
-		free(data->forks);
 	free(data);
+	data = NULL;
 	return (NULL);
 }
 
