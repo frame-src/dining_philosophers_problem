@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:02 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 20:19:07 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:19:05 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	*dining(void *philosopher)
 		pthread_mutex_unlock(&(data->democritus));
 	if (philo->num % 2)
 		usleep(100);
-	while (1)
+	while (philo->dead == false)
 	{
 		eating(&philo);
 		if ((data->max_dinners >= 0 && \
@@ -42,8 +42,10 @@ static void	*dining(void *philosopher)
 			break ;
 		action_print(data, philo->num, "Is sleeping... \t\t*zzzz*\n", false);
 		waiting(data->time_to_sleep);
-		if (philo->dead == false)
-			action_print(data, philo->num, "Is thinking... \t\t*mumble\n", false);
+		if ((data->max_dinners >= 0 && \
+			philo->dinners_done == data->max_dinners) || philo->dead == true)
+			break ;
+		action_print(data, philo->num, "Is thinking... \t\t*mumble\n", false);
 		if ((data->max_dinners >= 0 && \
 			philo->dinners_done == data->max_dinners) || philo->dead == true)
 			break ;
@@ -56,8 +58,6 @@ static void	sinc(t_info **data)
 	(*data)->all_ready = true;
 	usleep(100);
 	(*data)->start = timestamp();
-	printf("START %lld\n", (*data)->start);
-	printf("food %d\n", (*data)->max_dinners);
 	pthread_mutex_unlock(&(*data)->democritus);
 }
 
@@ -92,6 +92,10 @@ int	the_banquet(t_info *data)
 	if (main_checker(&data) == ALIVE)
 		end_of_the_banquet(data, philo, ALIVE);
 	else
+	{
+		if(data->num_philo == 1)
+			pthread_mutex_unlock(&(data->forks[0]));
 		end_of_the_banquet(data, philo, DEAD);
+	}
 	return (0);
 }

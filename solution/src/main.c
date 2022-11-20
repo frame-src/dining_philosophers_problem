@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:12:01 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 20:16:05 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:00:43 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@ void	end_of_the_banquet(t_info *data, t_philosopher *philo, int status)
 	free(data->forks);
 }
 
-/* LEAKS CHECK
-static void	leaks(void)
-{
-	system("leaks philo");
-}
+// static void	leaks(void)
+// {
+// 	system("leaks philo");
+// }
+/*
+
 	atexit(leaks);
 */
 int	main(int argc, char*argv[])

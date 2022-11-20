@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 20:27:33 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:17:02 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	check_death(t_info **data)
 	long long		time;
 	t_philosopher	*philo;
 
-	i = -1;
+	i = 0;
 	time = timestamp();
-	while (++i < (*data)->num_philo)
+	while (i < (*data)->num_philo)
 	{
 		philo = &(*data)->philosophers[i];
 		pthread_mutex_lock(&(philo->digestion));
@@ -48,12 +48,14 @@ int	check_death(t_info **data)
 		}
 		pthread_mutex_unlock(&(philo->digestion));
 		pthread_mutex_lock(&philo->buboes);
+		time = timestamp();
 		if (time - philo->time_last_meal >= (*data)->time_to_death)
 		{
 			pthread_mutex_unlock(&philo->buboes);
 			return (DEAD);
 		}
 		pthread_mutex_unlock(&philo->buboes);
+		i++;
 	}
 	return (ALIVE);
 }
