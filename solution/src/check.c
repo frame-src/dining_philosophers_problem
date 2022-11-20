@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 23:34:18 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 00:30:43 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_death(t_info **data, long long time)
 	{
 		philo = &(*data)->philosophers[i];
 		pthread_mutex_lock(&(philo->digestion));
-		if (philo->dinners_done == 0 && time - \
+		if (philo->dinners_done == 0 && (*data) && time - \
 				(*data)->start < (*data)->time_to_death)
 		{
 			pthread_mutex_unlock(&(philo->digestion));
