@@ -16,7 +16,7 @@ SRC =		./src/actions.c\
 OBJ =	$(patsubst $(SDIR)/%.c, $(ODIR)/%.o, $(SRC))
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g -pthread 
+CFLAGS = -Wall -Werror -Wextra #-pthread -fsanitize=thread
 
 all:	$(NAME)
 
@@ -34,7 +34,7 @@ rmdir:
 	rm -rf $(NAME).dSYM 
 
 fclean: clean rmdir
-	rm $(NAME) 
+	-rm $(NAME) 
 
 re: fclean all
 

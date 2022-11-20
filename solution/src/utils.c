@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:12:24 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 21:02:50 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:02:46 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	waiting(int time)
 	{
 		if (time_frame(i, timestamp()) >= time)
 			return (true);
-		usleep(100);
+		usleep(60);
 	}
 	return (false);
 }

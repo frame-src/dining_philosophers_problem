@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 21:17:02 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:34:18 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,27 @@
 *	So we should change the value so that the main process can
 *	turn the mutex(&message) on
 *==========================================================*/
-int	check_death(t_info **data)
+static bool	death_status(t_philosopher *philo, t_info **data)
+{
+	long long	time;
+
+	pthread_mutex_lock(&philo->buboes);
+	time = timestamp();
+	if (time - philo->time_last_meal >= (*data)->time_to_death)
+	{
+		pthread_mutex_unlock(&philo->buboes);
+		return (true);
+	}
+	pthread_mutex_unlock(&philo->buboes);
+	return (false);
+}
+
+int	check_death(t_info **data, long long time)
 {
 	int				i;
-	long long		time;
 	t_philosopher	*philo;
 
 	i = 0;
-	time = timestamp();
 	while (i < (*data)->num_philo)
 	{
 		philo = &(*data)->philosophers[i];
@@ -47,14 +60,8 @@ int	check_death(t_info **data)
 			return (FULL);
 		}
 		pthread_mutex_unlock(&(philo->digestion));
-		pthread_mutex_lock(&philo->buboes);
-		time = timestamp();
-		if (time - philo->time_last_meal >= (*data)->time_to_death)
-		{
-			pthread_mutex_unlock(&philo->buboes);
+		if (death_status(philo, data) == true)
 			return (DEAD);
-		}
-		pthread_mutex_unlock(&philo->buboes);
 		i++;
 	}
 	return (ALIVE);
@@ -74,6 +81,7 @@ int	main_checker(t_info **data)
 {
 	t_philosopher	*philo;
 	int				status;
+	long long		time;
 	static int		count;
 
 	philo = (*data)->philosophers;
@@ -82,7 +90,8 @@ int	main_checker(t_info **data)
 		if (count == (*data)->max_dinners)
 			return (FULL);
 		pthread_mutex_lock(&philo->first_kill);
-		status = check_death(data);
+		time = timestamp();
+		status = check_death(data, time);
 		pthread_mutex_unlock(&philo->first_kill);
 		if (status == DEAD)
 		{

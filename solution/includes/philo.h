@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:08:38 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 19:53:07 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:32:34 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			the_banquet(t_info *data);
 /*==========================================================*
 |						DEATH CHECK							|
 *==========================================================*/
-int			check_death(t_info **data);
+int			check_death(t_info **data, long long time);
 int			main_checker(t_info **data);
 
 #endif 
