@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:12:24 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 23:02:46 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 16:03:50 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ long long	time_frame(long long start, long long end)
 *	It is a better usleep but:
 *	this is also checking in the meantime if a philo is dead;
 *==========================================================*/
-bool	waiting(int time)
+bool	waiting(long int time)
 {
 	long long	i;
 
@@ -57,7 +57,7 @@ bool	waiting(int time)
 	{
 		if (time_frame(i, timestamp()) >= time)
 			return (true);
-		usleep(60);
+		usleep(200);
 	}
 	return (false);
 }

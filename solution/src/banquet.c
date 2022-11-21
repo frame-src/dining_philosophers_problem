@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:02 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 23:35:08 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:39:13 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	*dining(void *philosopher)
 	if (data->all_ready == true)
 		pthread_mutex_unlock(&(data->democritus));
 	if (philo->num % 2)
-		usleep(100);
+		waiting(data->time_to_eat);
 	while (philo->dead == false)
 	{
 		eating(&philo);
@@ -50,7 +50,6 @@ static void	*dining(void *philosopher)
 static void	sinc(t_info **data)
 {
 	(*data)->all_ready = true;
-	usleep(100);
 	(*data)->start = timestamp();
 	pthread_mutex_unlock(&(*data)->democritus);
 }

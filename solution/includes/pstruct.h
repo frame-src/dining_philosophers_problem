@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 21:18:47 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 20:45:43 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 11:32:07 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ typedef struct s_info
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					max_dinners;
-	int					num_dinners;
-	int					n_philos_sated;
 	bool				all_ready;
-	bool				first_dinner_done;
 	bool				last_christmas;
 	long long			start;
 	pthread_mutex_t		*forks;

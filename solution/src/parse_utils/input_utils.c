@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 14:41:09 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/20 19:46:41 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 11:32:51 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static void	fill_data(char **argv, t_info **data)
 	(*data)->time_to_death = ft_atoi(argv[2]);
 	(*data)->time_to_eat = ft_atoi(argv[3]);
 	(*data)->time_to_sleep = ft_atoi(argv[4]);
-	(*data)->n_philos_sated = 0;
 }
 
 /*==================================================================*

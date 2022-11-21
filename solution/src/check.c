@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/21 00:30:43 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:15:25 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	death_status(t_philosopher *philo, t_info **data)
 
 	pthread_mutex_lock(&philo->buboes);
 	time = timestamp();
-	if (time - philo->time_last_meal >= (*data)->time_to_death)
+	if (time - philo->time_last_meal > (*data)->time_to_death)
 	{
 		pthread_mutex_unlock(&philo->buboes);
 		return (true);
@@ -49,7 +49,7 @@ int	check_death(t_info **data, long long time)
 		philo = &(*data)->philosophers[i];
 		pthread_mutex_lock(&(philo->digestion));
 		if (philo->dinners_done == 0 && (*data) && time - \
-				(*data)->start < (*data)->time_to_death)
+				(*data)->start <= (*data)->time_to_death)
 		{
 			pthread_mutex_unlock(&(philo->digestion));
 			return (ALIVE);
