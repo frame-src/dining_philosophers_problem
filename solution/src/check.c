@@ -6,7 +6,7 @@
 /*   By: frmessin <frmessin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:10:34 by frmessin          #+#    #+#             */
-/*   Updated: 2022/11/21 15:15:25 by frmessin         ###   ########.fr       */
+/*   Updated: 2022/11/22 17:40:10 by frmessin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 *	So we should change the value so that the main process can
 *	turn the mutex(&message) on
 *==========================================================*/
-static bool	death_status(t_philosopher *philo, t_info **data)
+static bool	death_status(t_philosopher *philo, int i, t_info **data)
 {
 	long long	time;
 
@@ -31,6 +31,7 @@ static bool	death_status(t_philosopher *philo, t_info **data)
 	time = timestamp();
 	if (time - philo->time_last_meal > (*data)->time_to_death)
 	{
+		action_print(*data, i, "is dead... \tR.I.P.\n", true);
 		pthread_mutex_unlock(&philo->buboes);
 		return (true);
 	}
@@ -60,7 +61,7 @@ int	check_death(t_info **data, long long time)
 			return (FULL);
 		}
 		pthread_mutex_unlock(&(philo->digestion));
-		if (death_status(philo, data) == true)
+		if (death_status(philo, i, data) == true)
 			return (DEAD);
 		i++;
 	}
@@ -94,10 +95,7 @@ int	main_checker(t_info **data)
 		status = check_death(data, time);
 		pthread_mutex_unlock(&philo->first_kill);
 		if (status == DEAD)
-		{
-			action_print(*data, philo->num, "is dead... \tR.I.P.\n", true);
 			return (DEAD);
-		}
 		else if (status == FULL)
 			count++;
 	}
